@@ -232,7 +232,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 **Toghrul Mehdiyev**
 - GitHub: [@Toghrul-Mehdi](https://github.com/Toghrul-Mehdi)
-- LinkedIn: [Your LinkedIn](https://linkedin.com/in/togrul-mehdiyev-ab486335a)
+- LinkedIn: [Togrul Mehdiyev](https://linkedin.com/in/togrul-mehdiyev-ab486335a)
 
 ## ⭐ Show your support
 
