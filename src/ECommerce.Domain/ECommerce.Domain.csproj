@@ -11,4 +11,8 @@
     <Folder Include="Products\Events\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ECommerce.SharedKernel\ECommerce.SharedKernel.csproj" />
+  </ItemGroup>
+
 </Project>
