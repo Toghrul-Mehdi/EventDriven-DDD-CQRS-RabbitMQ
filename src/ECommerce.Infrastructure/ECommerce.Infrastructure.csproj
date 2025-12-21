@@ -8,11 +8,11 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.22" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="8.0.22" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Persistence\Configurations\" />
-    <Folder Include="Persistence\Repositories\" />
+    <ProjectReference Include="..\ECommerce.Domain\ECommerce.Domain.csproj" />
   </ItemGroup>
 
 </Project>
