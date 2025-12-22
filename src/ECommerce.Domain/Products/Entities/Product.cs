@@ -8,6 +8,7 @@ public class Product : Entity
     public int Stock { get; private set; }
     public string CategoryId { get; private set; }
     public Category Category { get; private set; }
+    public bool IsDeleted { get; private set; }
 
     private Product() { }
 
@@ -67,5 +68,13 @@ public class Product : Entity
 
         Name = name;
         Description = description ?? string.Empty;
+    }
+
+    public void Delete()
+    {
+        if (IsDeleted)
+            throw new InvalidOperationException("Product is already deleted.");
+
+        IsDeleted = true;        
     }
 }
