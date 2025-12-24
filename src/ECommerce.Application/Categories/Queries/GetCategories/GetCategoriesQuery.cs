@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ECommerce.SharedKernel.Domain;
+using MediatR;
 
-namespace ECommerce.Application.Categories.Queries.GetCategories
-{
-    internal class GetCategoriesQuery
-    {
-    }
-}
+namespace ECommerce.Application.Categories.Queries.GetCategories;
+public record GetCategoriesQuery() : IRequest<Result<List<CategoryDto>>>;
+
