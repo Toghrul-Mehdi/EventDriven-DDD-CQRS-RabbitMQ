@@ -1,5 +1,8 @@
 ﻿using ECommerce.SharedKernel.Domain;
+using ECommerce.Domain.Products.Events;
+
 namespace ECommerce.Domain.Products.Entities;
+
 public class Product : Entity
 {
     public string Name { get; private set; }
@@ -13,11 +16,11 @@ public class Product : Entity
     private Product() { }
 
     public static Product Create(
-       string name,
-       string description,
-       decimal price,
-       int stock,
-       string categoryId)
+        string name,
+        string description,
+        decimal price,
+        int stock,
+        string categoryId)
     {
         Guard.AgainstNullOrEmpty(name, nameof(name));
         Guard.AgainstNullOrEmpty(categoryId, nameof(categoryId));
@@ -26,21 +29,41 @@ public class Product : Entity
         if (stock < 0)
             throw new ArgumentException("Stock cannot be negative", nameof(stock));
 
-        return new Product
+        var product = new Product
         {
             Name = name,
             Description = description ?? string.Empty,
             Price = price,
             Stock = stock,
-            CategoryId = categoryId
+            CategoryId = categoryId,
+            IsDeleted = false
         };
 
+        product.AddDomainEvent(new ProductCreatedEvent(
+            product.Id,
+            product.Name,
+            product.Description,
+            product.Price,
+            product.Stock,
+            product.CategoryId
+        ));
+
+        return product;
     }
 
     public void UpdatePrice(decimal newPrice)
     {
         Guard.AgainstNegativeOrZero(newPrice, nameof(newPrice));
-        Price = newPrice;        
+
+        var oldPrice = Price;
+        Price = newPrice;
+
+        AddDomainEvent(new ProductPriceChangedEvent(
+            Id,
+            Name,
+            oldPrice,
+            newPrice
+        ));
     }
 
     public void AddStock(int quantity)
@@ -72,9 +95,11 @@ public class Product : Entity
 
     public void Delete()
     {
-        if (IsDeleted)
-            throw new InvalidOperationException("Product is already deleted.");
+        IsDeleted = true;
+    }
 
-        IsDeleted = true;        
+    public void Restore()
+    {
+        IsDeleted = false;
     }
 }
