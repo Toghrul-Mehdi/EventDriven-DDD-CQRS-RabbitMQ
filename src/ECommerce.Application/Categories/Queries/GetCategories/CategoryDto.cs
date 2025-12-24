@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ECommerce.Application.Categories.Queries.GetCategories
+﻿namespace ECommerce.Application.Categories.Queries.GetCategories;
+public class CategoryDto
 {
-    internal class CategoryDto
-    {
-    }
+    public string CategoryId { get; set; }
+    public string Name { get; set; }
+    public string Description { get; set; }
 }
