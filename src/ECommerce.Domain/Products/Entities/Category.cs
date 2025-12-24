@@ -1,4 +1,5 @@
-﻿using ECommerce.SharedKernel.Domain;
+﻿using ECommerce.Domain.Products.Events;
+using ECommerce.SharedKernel.Domain;
 namespace ECommerce.Domain.Products.Entities;
 public class Category : Entity
 {
@@ -13,11 +14,19 @@ public class Category : Entity
     public static Category Create(string name, string description)
     {
         Guard.AgainstNullOrEmpty(name, nameof(name));
-        return new Category
+        var category = new Category
         {
             Name = name,
             Description = description ?? string.Empty
         };
+
+        category.AddDomainEvent(new CategoryCreatedEvent(
+            category.Id,
+            category.Name,
+            category.Description
+        ));
+
+        return category;
     }    
     public void Update(string name, string description)
     {
