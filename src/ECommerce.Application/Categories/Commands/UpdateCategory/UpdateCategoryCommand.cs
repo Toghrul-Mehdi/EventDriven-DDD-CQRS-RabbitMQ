@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ECommerce.Application.Categories.Commands.UpdateCategory
-{
-    internal class UpdateCategoryCommand
-    {
-    }
-}
+﻿using ECommerce.SharedKernel.Domain;
+using MediatR;
+namespace ECommerce.Application.Categories.Commands.UpdateCategory;
+public record UpdateCategoryCommand(
+    string Id,
+    string Name,
+    string Description
+) : IRequest<Result<string>>;
