@@ -1,13 +1,19 @@
 ﻿using ECommerce.Domain.Products.Entities;
+using ECommerce.Infrastructure.Extensions;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 namespace ECommerce.Infrastructure.Persistence;
 
 public class ApplicationDbContext : DbContext
 {
-    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
-        : base(options)
+    private readonly IMediator _mediator;
+
+    public ApplicationDbContext(
+        DbContextOptions<ApplicationDbContext> options,
+        IMediator mediator) : base(options)
     {
+        _mediator = mediator;
     }
 
     public DbSet<Product> Products { get; set; }
@@ -17,5 +23,11 @@ public class ApplicationDbContext : DbContext
     {
         base.OnModelCreating(modelBuilder);
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
+    }
+
+    public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+    {
+        await _mediator.DispatchDomainEventsAsync(this);
+        return await base.SaveChangesAsync(cancellationToken);
     }
 }
