@@ -30,7 +30,7 @@ public class CategoryRepository : ICategoryRepository
     }
 
     public async Task<Category?> GetByNameAsync(string name, CancellationToken cancellationToken = default)
-    {
+    {   
         return await _context.Categories
             .FirstOrDefaultAsync(c => c.Name == name, cancellationToken);
     }
