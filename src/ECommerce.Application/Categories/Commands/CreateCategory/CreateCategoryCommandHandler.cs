@@ -3,7 +3,6 @@ using ECommerce.Domain.Products.Repositories;
 using ECommerce.SharedKernel.Domain;
 using MediatR;
 namespace ECommerce.Application.Categories.Commands.CreateCategory;
-
 public class CreateCategoryCommandHandler : IRequestHandler<CreateCategoryCommand, Result<string>>
 {
     private readonly ICategoryRepository _categoryRepository;
