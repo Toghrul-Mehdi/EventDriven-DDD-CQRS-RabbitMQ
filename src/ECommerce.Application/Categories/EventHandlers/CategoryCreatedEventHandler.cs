@@ -1,9 +1,7 @@
 ﻿using ECommerce.Domain.Products.Events;
 using MediatR;
 using Microsoft.Extensions.Logging;
-
 namespace ECommerce.Application.Categories.EventHandlers;
-
 public class CategoryCreatedEventHandler : INotificationHandler<CategoryCreatedEvent>
 {
     private readonly ILogger<CategoryCreatedEventHandler> _logger;
