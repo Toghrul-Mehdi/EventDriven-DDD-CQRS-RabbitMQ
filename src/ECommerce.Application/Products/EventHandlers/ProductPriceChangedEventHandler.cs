@@ -1,9 +1,7 @@
 ﻿using ECommerce.Domain.Products.Events;
 using MediatR;
 using Microsoft.Extensions.Logging;
-
 namespace ECommerce.Application.Products.EventHandlers;
-
 public class ProductPriceChangedEventHandler : INotificationHandler<ProductPriceChangedEvent>
 {
     private readonly ILogger<ProductPriceChangedEventHandler> _logger;
