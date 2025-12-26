@@ -2,7 +2,6 @@
 using ECommerce.SharedKernel.Domain;
 using MediatR;
 namespace ECommerce.Application.Categories.Commands.DeleteCategory;
-
 public class DeleteCategoryCommandHandler : IRequestHandler<DeleteCategoryCommand, Result<string>>
 {
     private readonly ICategoryRepository _categoryRepository;
