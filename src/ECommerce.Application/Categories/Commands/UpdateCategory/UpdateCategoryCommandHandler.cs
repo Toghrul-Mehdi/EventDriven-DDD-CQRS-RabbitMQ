@@ -1,7 +1,6 @@
 ﻿using ECommerce.Domain.Products.Repositories;
 using ECommerce.SharedKernel.Domain;
 using MediatR;
-
 namespace ECommerce.Application.Categories.Commands.UpdateCategory;
 
 public class UpdateCategoryCommandHandler : IRequestHandler<UpdateCategoryCommand, Result<string>>
