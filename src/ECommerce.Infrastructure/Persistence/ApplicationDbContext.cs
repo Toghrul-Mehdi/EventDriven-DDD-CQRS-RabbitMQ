@@ -2,9 +2,7 @@
 using ECommerce.Infrastructure.Extensions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-
 namespace ECommerce.Infrastructure.Persistence;
-
 public class ApplicationDbContext : DbContext
 {
     private readonly IMediator _mediator;
@@ -24,7 +22,7 @@ public class ApplicationDbContext : DbContext
         base.OnModelCreating(modelBuilder);
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
     }
-
+    //DbContext daxilinde event qaldirma  mexanizminin confiqurasiyasi
     public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
     {
         await _mediator.DispatchDomainEventsAsync(this);
