@@ -27,14 +27,16 @@ public class Category : Entity
         ));
 
         return category;
-    }    
+    }
     public void Update(string name, string description)
     {
         Guard.AgainstNullOrEmpty(name, nameof(name));
 
         Name = name;
         Description = description ?? string.Empty;
-    }    
+
+        AddDomainEvent(new CategoryUpdatedEvent(Id, Name, Description));
+    }
     public bool HasProducts()
     {
         return _products.Any();
@@ -49,5 +51,7 @@ public class Category : Entity
             throw new InvalidOperationException("Category is already deleted.");
 
         IsDeleted = true;
+
+        AddDomainEvent(new CategoryDeletedEvent(Id, Name));
     }
 }
