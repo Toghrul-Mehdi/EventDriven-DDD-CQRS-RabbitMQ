@@ -71,7 +71,10 @@ public class Product : Entity
         if (quantity <= 0)
             throw new ArgumentException("Quantity must be positive", nameof(quantity));
 
+        var oldStock = Stock;
         Stock += quantity;
+
+        AddDomainEvent(new ProductStockChangedEvent(Id, Name, oldStock, Stock));
     }
 
     public void RemoveStock(int quantity)
@@ -82,7 +85,10 @@ public class Product : Entity
         if (Stock < quantity)
             throw new InvalidOperationException("Insufficient stock");
 
+        var oldStock = Stock;
         Stock -= quantity;
+
+        AddDomainEvent(new ProductStockChangedEvent(Id, Name, oldStock, Stock));
     }
 
     public void Update(string name, string description)
@@ -91,11 +97,14 @@ public class Product : Entity
 
         Name = name;
         Description = description ?? string.Empty;
+
+        AddDomainEvent(new ProductUpdatedEvent(Id, Name, Description));
     }
 
     public void Delete()
     {
         IsDeleted = true;
+        AddDomainEvent(new ProductDeletedEvent(Id, Name));
     }
 
     public void Restore()
