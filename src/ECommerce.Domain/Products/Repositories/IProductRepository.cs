@@ -11,4 +11,5 @@ public interface IProductRepository
     void Update(Product product);    
     void Delete(Product product);    
     Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
+    Task DeleteByCategory(string categoryId,CancellationToken cancellationToken =default);
 }
