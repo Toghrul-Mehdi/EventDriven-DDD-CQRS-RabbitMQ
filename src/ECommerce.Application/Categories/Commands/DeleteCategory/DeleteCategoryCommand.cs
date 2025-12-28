@@ -3,5 +3,5 @@ using MediatR;
 namespace ECommerce.Application.Categories.Commands.DeleteCategory;
 public record DeleteCategoryCommand(
     string CategoryId
-    ) : IRequest<Result<string>>;
+    ) : IRequest<Result>;
 
