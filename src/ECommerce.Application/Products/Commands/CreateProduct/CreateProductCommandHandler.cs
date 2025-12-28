@@ -23,7 +23,7 @@ public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand,
         var categoryExists = await _categoryRepository.ExistsAsync(request.CategoryId, cancellationToken);
         if (!categoryExists)
         {
-            return Result<string>.Failure("Category not found");
+            return Result<string>.NotFound("Category not found");
         }
 
         var product = Product.Create(
@@ -37,6 +37,6 @@ public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand,
         await _productRepository.AddAsync(product, cancellationToken);
         await _productRepository.SaveChangesAsync(cancellationToken);
 
-        return Result<string>.Success(product.Id);
+        return Result<string>.Created(product.Id, "Product created successfully");
     }
 }
