@@ -27,6 +27,6 @@ public class GetProductsQueryHandler : IRequestHandler<GetProductsQuery, Result<
             CategoryName = p.Category?.Name
         }).ToList();
 
-        return Result<List<ProductDto>>.Success(productDtos);
+        return Result<List<ProductDto>>.Success(productDtos, "Products retrieved successfully");
     }
 }
