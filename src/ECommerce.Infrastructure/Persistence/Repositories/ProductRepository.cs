@@ -64,4 +64,13 @@ public class ProductRepository : IProductRepository
     {
         return await _context.SaveChangesAsync(cancellationToken);
     }
+
+    public async Task DeleteByCategory(string categoryId,CancellationToken cancellationToken=default)
+    {
+        var products = await _context.Products
+          .Where(x => x.CategoryId == categoryId)
+          .ToListAsync();
+
+        _context.Products.RemoveRange(products);
+    }
 }
