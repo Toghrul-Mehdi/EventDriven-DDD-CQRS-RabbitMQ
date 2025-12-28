@@ -2,23 +2,26 @@
 using ECommerce.SharedKernel.Domain;
 using MediatR;
 namespace ECommerce.Application.Products.Commands.DeleteProduct;
-public class DeleteProductCommandHandler : IRequestHandler<DeleteProductCommand, Result<string>>
+public class DeleteProductCommandHandler : IRequestHandler<DeleteProductCommand, Result>
 {
     private readonly IProductRepository _productRepository;
     public DeleteProductCommandHandler(IProductRepository productRepository)
     {
         _productRepository = productRepository;
     }
-    public async Task<Result<string>> Handle(DeleteProductCommand request, CancellationToken cancellationToken)
+    public async Task<Result> Handle(DeleteProductCommand request, CancellationToken cancellationToken)
     {
         var product = await _productRepository.GetByIdAsync(request.ProductId, cancellationToken);
-        if (product is null)
+
+        if (product == null)
         {
-            return Result<string>.Failure("Product not found.");
+            return Result.NotFound("Product not found");
         }
+
         product.Delete();
-        _productRepository.Delete(product);
+        _productRepository.Update(product);
         await _productRepository.SaveChangesAsync(cancellationToken);
-        return Result<string>.Success("Product delete succesfully.");
+
+        return Result.NoContent("Product deleted successfully");
     }
 }
