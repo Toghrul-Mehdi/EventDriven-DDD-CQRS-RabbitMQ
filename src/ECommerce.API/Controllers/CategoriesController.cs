@@ -2,15 +2,15 @@
 using ECommerce.Application.Categories.Commands.UpdateCategory;
 using ECommerce.Application.Categories.Commands.DeleteCategory;
 using ECommerce.Application.Categories.Queries.GetCategories;
+using ECommerce.Application.Categories.Queries.GetCategoryById;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using ECommerce.Application.Categories.Queries.GetCategoryById;
+using ECommerce.Application.DTOs.Category;
 
 namespace ECommerce.API.Controllers;
 
-[ApiController]
 [Route("api/[controller]")]
-public class CategoriesController : ControllerBase
+public class CategoriesController : BaseController
 {
     private readonly IMediator _mediator;
 
@@ -23,62 +23,36 @@ public class CategoriesController : ControllerBase
     public async Task<IActionResult> GetAll()
     {
         var result = await _mediator.Send(new GetCategoriesQuery());
-
-        if (result.IsFailure)
-            return BadRequest(new { error = result.Error });
-
-        return Ok(result.Value);
+        return HandleResult(result);
     }
 
     [HttpGet("{id}")]
     public async Task<IActionResult> GetById(string id)
     {
         var result = await _mediator.Send(new GetCategoryById(id));
-
-        if (result.IsFailure)
-            return NotFound(new { error = result.Error });
-
-        return Ok(result.Value);
+        return HandleResult(result);
     }
 
     [HttpPost]
     public async Task<IActionResult> Create([FromBody] CreateCategoryCommand command)
     {
         var result = await _mediator.Send(command);
-
-        if (result.IsFailure)
-            return BadRequest(new { error = result.Error });
-
-        return CreatedAtAction(
-            nameof(GetById),
-            new { id = result.Value },
-            new { id = result.Value }
-        );
+        return HandleResult(result);
     }
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> Update(
-        string id,
-        [FromBody] UpdateCategoryCommand command)
+    public async Task<IActionResult> Update(string id, [FromBody] UpdateCategoryDto dto)
     {
-        var updatedCommand = command with { Id = id };
-
-        var result = await _mediator.Send(updatedCommand);
-
-        if (result.IsFailure)
-            return BadRequest(new { error = result.Error });
-
-        return NoContent();
+        var command = new UpdateCategoryCommand(id, dto.Name, dto.Description);
+        var result = await _mediator.Send(command);
+        return HandleResult(result);
     }
 
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(string id)
     {
         var result = await _mediator.Send(new DeleteCategoryCommand(id));
-
-        if (result.IsFailure)
-            return BadRequest(new { error = result.Error });
-
-        return NoContent();
+        return HandleResult(result);
     }
 }
+
