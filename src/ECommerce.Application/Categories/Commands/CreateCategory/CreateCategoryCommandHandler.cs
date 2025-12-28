@@ -12,7 +12,7 @@ public class CreateCategoryCommandHandler : IRequestHandler<CreateCategoryComman
     }
     public async Task<Result<string>> Handle(CreateCategoryCommand request, CancellationToken cancellationToken)
     {
-        var exsistCategory = await _categoryRepository.ExistsAsync(request.Name,cancellationToken);
+        var exsistCategory = await _categoryRepository.ExistsAsync(request.Name,cancellationToken);        
         if (exsistCategory)
         {
             return Result<string>.Failure("Category name already exsist.");
