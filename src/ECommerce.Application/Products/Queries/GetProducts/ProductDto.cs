@@ -8,4 +8,5 @@ public class ProductDto
     public int Stock { get; set; }
     public string CategoryId { get; set; }
     public string CategoryName { get; set; }
+    public bool IsDeleted { get; set; }
 }
