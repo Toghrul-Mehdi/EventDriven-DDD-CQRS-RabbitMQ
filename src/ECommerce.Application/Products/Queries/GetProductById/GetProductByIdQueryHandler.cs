@@ -29,7 +29,8 @@ public class GetProductByIdQueryHandler : IRequestHandler<GetProductByIdQuery, R
             Price = product.Price,
             Stock = product.Stock,
             CategoryId = product.CategoryId,
-            CategoryName = product.Category?.Name
+            CategoryName = product.Category?.Name,
+            IsDeleted = product.IsDeleted
         };
 
         return Result<ProductDto>.Success(dto);
