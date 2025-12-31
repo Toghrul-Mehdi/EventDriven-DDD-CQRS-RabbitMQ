@@ -7,7 +7,7 @@ public class Category : Entity
     public string Description { get; private set; }
     public bool IsDeleted { get; private set; }
 
-    private readonly List<Product> _products = new();
+    private readonly List<Product> _products = new();   
     public IReadOnlyCollection<Product> Products => _products.AsReadOnly();
 
     private Category() { }    
