@@ -1,4 +1,5 @@
-﻿using ECommerce.Domain.Products.Entities;
+﻿using ECommerce.Domain.Baskets.Entities;
+using ECommerce.Domain.Products.Entities;
 using ECommerce.Infrastructure.Extensions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -16,6 +17,8 @@ public class ApplicationDbContext : DbContext
 
     public DbSet<Product> Products { get; set; }
     public DbSet<Category> Categories { get; set; }
+    public DbSet<Order> Orders { get; set; }
+    public DbSet<OrderItem> OrderItems { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
