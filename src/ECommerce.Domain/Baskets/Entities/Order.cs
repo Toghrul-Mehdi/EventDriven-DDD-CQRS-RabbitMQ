@@ -37,7 +37,7 @@ public class Order : Entity
             Status = OrderStatus.Pending,
             ShippingAddress = shippingAddress,
             OrderDate = DateTime.UtcNow,
-            _orderItems = orderItems,  // ← İndi işləyəcək
+            _orderItems = orderItems,  
             IsDeleted = false
         };
 
