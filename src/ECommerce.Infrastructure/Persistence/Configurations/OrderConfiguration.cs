@@ -39,8 +39,8 @@ public class OrderConfiguration : IEntityTypeConfiguration<Order>
             .IsRequired();
 
         builder.HasMany(o => o.OrderItems)
-            .WithOne()
-            .HasForeignKey("OrderId")
+            .WithOne(oi=>oi.Order)
+            .HasForeignKey(oi=>oi.OrderId)
             .OnDelete(DeleteBehavior.Cascade);
 
         builder.HasIndex(o => o.UserId);
